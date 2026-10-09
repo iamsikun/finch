@@ -1,5 +1,7 @@
 # Finch
 
+![Finch: read, explain, and situate academic papers. An open skill for AI agents.](docs/assets/finch-social-preview.jpg)
+
 **Finch** is a paper-reading skill for LLM agents. It helps you understand an academic paper
 well enough to use its ideas:
 

@@ -5,6 +5,11 @@ Finch uses semantic versioning:
 - **Minor** releases add guidance or capabilities.
 - **Patch** releases make wording fixes.
 
+## 0.2.1 — 2026-10-09
+
+- Add a banner image to the README.
+- Expand the plugin keywords to match the repository topics.
+
 ## 0.2.0 — 2026-10-09
 
 - Fill gaps in the existing reading workflow: honor focused questions and reader
