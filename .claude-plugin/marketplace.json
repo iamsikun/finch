@@ -1,0 +1,14 @@
+{
+  "name": "finch",
+  "owner": {
+    "name": "Sikun Xu"
+  },
+  "description": "Finch: a portable paper-reading skill for LLM agents.",
+  "plugins": [
+    {
+      "name": "finch",
+      "source": "./",
+      "description": "Paper-reading skill: reconstruct the argument, explain the central idea, and situate the paper in the literature."
+    }
+  ]
+}

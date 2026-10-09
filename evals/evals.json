@@ -1,0 +1,23 @@
+{
+  "skill_name": "finch",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Read this paper for me. I'm comfortable with econometrics and ML but new to this literature: Chernozhukov et al., 'Double/Debiased Machine Learning for Treatment and Structural Parameters' (arXiv:1608.00060).",
+      "expected_output": "A standard reading. The essential idea is Neyman-orthogonal scores plus cross-fitting, which give root-n inference on a low-dimensional parameter despite slow-converging ML nuisance estimates. It explains why orthogonality removes first-order sensitivity to nuisance error and why cross-fitting removes own-observation overfitting bias. The rate conditions (product of nuisance rates o(n^-1/2)) are stated. Predecessors include Robinson (1988) partialling out and the post-double-selection lasso. Theorem and section locations refer to the arXiv version read.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Explain the main theorem of Tibshirani, Barber, Candes & Ramdas, 'Conformal Prediction Under Covariate Shift' (NeurIPS 2019, arXiv:1904.06019), precisely: what it guarantees, what it assumes, and the key proof idea. Distinguish what you checked from what you took on trust.",
+      "expected_output": "A deep technical reading. The guarantee is marginal coverage, not conditional coverage, and it assumes a known likelihood ratio between test and training covariate distributions. Weighted exchangeability is the pivotal concept, and the weighted quantile is built from the likelihood ratios. It explains what happens when the likelihood ratio is estimated, and labels verified vs. trusted steps.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Quickly triage this paper — is it worth a full read for someone working on platform pricing? Card & Krueger (1994), 'Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania', AER.",
+      "expected_output": "A quick orientation of about one screen. It identifies a difference-in-differences design with Pennsylvania as the control, a finding of no employment loss, parallel trends as the key assumption, and the later Neumark–Wascher payroll-data dispute as a qualification. It gives a read/skip judgment tied to the user's topic.",
+      "files": []
+    }
+  ]
+}

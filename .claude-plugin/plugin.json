@@ -1,0 +1,8 @@
+{
+  "name": "finch",
+  "version": "0.1.0",
+  "description": "Read, explain, and situate academic papers: reconstruct the argument, explain why the central idea works, check what the evidence establishes, and build a verified literature neighborhood.",
+  "author": { "name": "Sikun Xu" },
+  "license": "MIT",
+  "keywords": ["research", "papers", "reading", "economics", "statistics", "machine-learning"]
+}
