@@ -5,7 +5,7 @@ Finch uses semantic versioning:
 - **Minor** releases add guidance or capabilities.
 - **Patch** releases make wording fixes.
 
-## 0.2.0 — Unreleased
+## 0.2.0 — 2026-10-09
 
 - Fill gaps in the existing reading workflow: honor focused questions and reader
   preferences; explain equations and figures with their conditions beside the claims;
