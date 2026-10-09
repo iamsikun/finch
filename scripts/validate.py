@@ -65,9 +65,24 @@ def main() -> int:
     if n_lines > 500:
         errors.append(f"SKILL.md has {n_lines} lines (> 500)")
 
-    for ref in sorted(set(re.findall(r"`(references/[^`]+\.md)`", body))):
-        if not (SKILL_DIR / ref).is_file():
-            errors.append(f"broken reference: {ref}")
+    # Check portable resource paths regardless of backticks, Markdown links, or fences.
+    resources = set(re.findall(r"(?:references|scripts)/[\w./-]+\.(?:md|py)", body))
+    for ref in sorted(resources):
+        target = (SKILL_DIR / ref).resolve()
+        if not target.is_relative_to(SKILL_DIR.resolve()) or not target.is_file():
+            errors.append(f"broken or non-portable resource: {ref}")
+    for resource in (SKILL_DIR / "references").rglob("*.md"):
+        relative = resource.relative_to(SKILL_DIR).as_posix()
+        if resource.parent != SKILL_DIR / "references":
+            errors.append(f"reference must be one level deep: {relative}")
+        if relative not in resources:
+            errors.append(f"reference has no route from SKILL.md: {relative}")
+    for script in (SKILL_DIR / "scripts").glob("*.py"):
+        if script.relative_to(SKILL_DIR).as_posix() not in resources:
+            errors.append(f"script has no route from SKILL.md: {script.name}")
+    license_file = SKILL_DIR / "LICENSE"
+    if not license_file.is_file() or license_file.read_text() != (ROOT / "LICENSE").read_text():
+        errors.append("installable skill must carry the repository LICENSE")
 
     plugin = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text())
     version = fields.get("metadata", {}).get("version")

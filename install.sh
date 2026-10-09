@@ -167,6 +167,10 @@ cmd_update() {
   [ -d "$FINCH_HOME/.git" ] || die "Finch is not installed at $FINCH_HOME"
   local before after
   before="$(installed_version)"
+  if [ -n "$(git -C "$FINCH_HOME" status --porcelain --untracked-files=all)" ]; then
+    say "$(date '+%F %T') local edits in $FINCH_HOME; skipping update ($before)"
+    return 0
+  fi
   if ! git -C "$FINCH_HOME" fetch --quiet --tags origin "$FINCH_REF" 2>/dev/null; then
     say "$(date '+%F %T') offline or fetch failed; keeping $before"
     return 0

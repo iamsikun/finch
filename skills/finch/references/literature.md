@@ -11,6 +11,7 @@ something specific about the focal paper.
 4. Comparing papers
 5. Historical vs. current position
 6. Reporting limits
+7. Reading a survey, review, meta-analysis, or perspective
 
 ---
 
@@ -57,14 +58,20 @@ For every paper you mention, check:
 2. **Version:** the working-paper and published versions may differ, so say which one
    you consulted.
 3. **Support:** when you attribute a claim to the paper, confirm the claim in its
-   abstract, text, or a reliable summary of it. Do not attribute a claim based only on
-   the focal paper's description of the related paper.
+   own abstract or relevant text. An abstract supports only the claims it actually
+   states, not detailed methods or proof comparisons. If only a secondary account is
+   available, attribute that account explicitly; do not label the original as inspected.
+   Do not attribute a claim based only on the focal paper's description of it.
 4. **Status:** label each paper as *inspected* (you read the relevant part), *verified
    to exist* (the metadata is confirmed but the content was not read), or *from memory,
    unverified*. Never present the third as the first.
 
 If you cannot verify a paper you believe is relevant, mention it as a lead to check, not
 as an established source.
+Check publisher or repository notices for corrections, withdrawals, expressions of
+concern, or retractions when accessible. Inspect what changed rather than assuming a
+notice invalidates every claim. State when status could not be checked. Deduplicate
+preprints and journal articles as versions of one work unless their differences matter.
 
 ## 4. Comparing papers
 
@@ -102,3 +109,32 @@ End the literature section with one honest sentence about coverage. Say which so
 you searched, roughly how deep the search went, and what may be missing. An example is
 "Based on the paper's references and a Semantic Scholar search; recent working papers
 may be missing." A neighborhood is a guide for reading, not a systematic review.
+
+## 7. Reading a survey, review, meta-analysis, or perspective
+
+Identify what kind of synthesis the authors claim. A narrative survey, a systematic
+review, a statistical meta-analysis, and a perspective have different evidentiary
+responsibilities; apply only the relevant checks.
+
+- **Scope and selection:** identify the question, search dates and sources, eligibility
+  criteria, screening, and exclusions. For narrative surveys, describe the selection
+  rationale without imposing systematic-review requirements or implying completeness.
+- **Contribution:** explain the organizing taxonomy, resolved disagreement, pooled
+  estimate, or conceptual argument. Trace a central synthesis claim to the included
+  studies; inspect pivotal originals when the claim depends on their interpretation.
+- **Study quality:** distinguish counting studies from weighing their designs and
+  biases. Check overlapping samples and duplicate publications, since repeated evidence
+  is not independent corroboration. Reporting completeness (for example, PRISMA) is
+  not itself evidence that a conclusion is valid.
+- **Meta-analysis:** identify the effect measure, compatible populations/comparisons,
+  weighting model, heterogeneity, dependence between estimates, and sensitivity to
+  inclusion or publication bias. Separate uncertainty in the pooled mean from the
+  variation expected across settings; a pooled association does not establish causality.
+- **Perspective:** reconstruct premises, inferential steps, counterarguments, and what
+  evidence could discriminate between competing explanations. Separate proposals and
+  value judgments from established findings.
+
+When comparing multiple papers for the user, align their question, population, target,
+assumptions, outcome definitions, and evidence before comparing conclusions. Explain
+whether an apparent disagreement concerns the same quantity. A short comparison is
+not a systematic review; undertake a reproducible search protocol only if requested.

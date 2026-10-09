@@ -103,6 +103,19 @@ project on <topic>?
 
 Reading modes: **quick orientation**, **standard** (default), **deep technical**, and
 **guided co-reading**. Finch infers the mode from your request.
+Focused questions get direct answers; your requested language, length, and format take
+precedence over the standard reading brief.
+
+If the host cannot read a local PDF reliably, the skill includes an optional helper:
+
+```bash
+python3 skills/finch/scripts/extract_pdf.py paper.pdf paper.txt
+```
+
+Run this from a repository clone, or resolve the script inside the installed skill.
+It requires Python 3.9+ and Poppler's `pdftotext`, preserves PDF page indices, and records a
+source hash. It flags sparse pages for inspection but does not do OCR or validate math.
+Ordinary use of Finch requires neither dependency when the agent can already read PDFs.
 
 ## Repository layout
 
@@ -113,7 +126,9 @@ skills/finch/            the installable skill
     empirical.md         causal, structural, experimental, descriptive, qualitative
     formal.md            theory, mathematical statistics, optimization, proofs
     computational.md     empirical ML and algorithms
-    literature.md        building and verifying a literature neighborhood
+    literature.md        literature neighborhoods and reading reviews/meta-analyses
+  scripts/extract_pdf.py optional local PDF extraction with page anchors
+  LICENSE                license included in the portable skill folder
 docs/design.md           objectives and the research behind each design choice
 docs/sources.md          annotated sources and attribution for adapted ideas
 evals/                   evaluation protocol, seed prompts, answer-key template
@@ -124,9 +139,11 @@ CHANGELOG.md             release notes
 
 ## Status
 
-This is version 0.1.0, an untested first draft. The design rests on the sources in
-`docs/sources.md`, but whether it beats a good ordinary prompt is an empirical question.
-See `evals/README.md` for how to test it on papers you know well.
+The development version is 0.2.0 (unreleased); `stable` remains the released channel.
+Structural validators, utility regression tests, and a source-checked smoke reading
+cover packaging and selected behavior. Whether Finch beats a good ordinary prompt is
+still an empirical question. See `evals/README.md` for the comparison protocol and
+`docs/sources.md` for the design's sources.
 
 ## License
 

@@ -5,6 +5,18 @@ Finch uses semantic versioning:
 - **Minor** releases add guidance or capabilities.
 - **Patch** releases make wording fixes.
 
+## 0.2.0 — Unreleased
+
+- Fill gaps in the existing reading workflow: honor focused questions and reader
+  preferences; explain equations and figures with their conditions beside the claims;
+  support interruptions and optional comprehension checks during co-reading.
+- Add survey/meta-analysis/perspective guidance to the existing literature guide,
+  source-status checks, and clearer sample, benchmark, and reproducibility checks.
+- Bundle an optional PDF extraction helper with page anchors, source hashes, and sparse
+  page warnings, plus the license needed when copying only the skill folder.
+- Make the updater skip tracked and untracked local edits before fetching.
+- Extend portable-resource validation, utility regression tests, and behavioral evals.
+
 ## 0.1.0 — 2026-10-09
 
 First release.

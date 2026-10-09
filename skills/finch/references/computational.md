@@ -62,12 +62,21 @@ procedure, system, or benchmark whose support is mainly experimental.
   were used. Check how the judges were validated.
 - **Distribution shift:** whether evaluation includes out-of-distribution or
   real-world conditions where the claim needs them.
+- **Dataset or benchmark contributions:** reconstruct collection, sampling, annotation,
+  quality control, licensing/access, and subgroup coverage. Distinguish the capability
+  the benchmark measures from the performance of the baseline used to demonstrate it.
+- **Agent evaluations:** preserve the tool environment, model/version, prompts, attempt
+  budget, stopping rules, and success grader when they affect the result. Distinguish
+  pass@k from single-attempt success and include latency or cost in efficiency claims.
 
 ## 5. Resources and reproducibility
 
 - Compute, data access, and model access (open weights or API).
 - Whether code and configurations are released.
 - Details that the main text omits but the appendix or code reveals.
+- Distinguish artifacts that are linked, artifacts you inspected (with a commit or
+  release), and results actually reproduced. A working code link proves availability,
+  not reproducibility. Resolve consequential paper/code differences explicitly.
 
 ## 6. Applicability
 

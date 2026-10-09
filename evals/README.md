@@ -71,7 +71,30 @@ reading the output lets you answer it.
 
 `evals.json` follows the Anthropic skill-creator schema, so its eval loop can run these
 prompts with and without the skill. Each prompt's `files` should point to the paper PDF
-or URL. Add `assertions` as answer keys mature.
+when a local fixture is available; otherwise put the versioned URL in the prompt. Add
+`assertions` as answer keys mature. Synthetic excerpts in cases 4–8 are self-contained
+behavioral regressions, not real papers or substitutes for domain evaluation.
+
+Run packaging and utility checks separately from reading evals:
+
+```bash
+uv run --no-project python scripts/validate.py
+uvx --from skills-ref agentskills validate skills/finch
+claude plugin validate .
+claude plugin validate .claude-plugin/plugin.json
+uv run --no-project python -m unittest discover -s scripts -p 'test_*.py'
+```
+
+The utility tests exercise failure handling, page boundaries, non-overwrite behavior,
+and updater preservation of local edits. They cannot measure reading quality.
+
+## Recorded smoke reading
+
+`keys/conformal-v2.md` pins the source and expectations for case 2.
+`smoke-conformal-v2.md` records the October 9, 2026 manual reading and its verification
+limits. The same agent authored and checked it: this is a source-checked smoke run,
+not an independent evaluation, benchmark score, or comparison against a baseline.
+The new cases 4–8 are regression prompts awaiting model runs.
 
 ## 5. Iterate
 

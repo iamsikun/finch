@@ -60,6 +60,10 @@ because, without it, Y can happen. Here is a two-line example."
    types, or a linear model.
 5. In a deep reading, state which steps you verified line by line and which you took on
    trust. Do not claim to have verified a proof you skimmed.
+6. Check that a cited lemma's hypotheses hold where it is used, and preserve the order
+   of limits, conditioning, and quantifiers. A numerical special case is a sanity check,
+   not a proof; identify a suspected gap precisely and keep it distinct from a step
+   you have not yet understood.
 
 ## 4. Reconstructing an economic or decision model
 

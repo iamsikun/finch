@@ -53,6 +53,9 @@ of the effect. Ask whether the result is partial or general equilibrium.
 
 ## 2. Inference and magnitude
 
+- **Sample construction:** trace the source population to the analysis sample, including
+  exclusions, missingness, attrition, weighting, and changing sample sizes across
+  specifications. These choices can change both the target population and the estimate.
 - **Standard errors are choices.** Check the clustering level against the level of
   treatment assignment. With few clusters, check for wild bootstrap or randomization
   inference. Note any adjustments for multiple hypotheses.
@@ -65,6 +68,9 @@ of the effect. Ask whether the result is partial or general equilibrium.
   and for whether the main specification was pre-registered or chosen afterward.
 - When tables are central, read the notes beneath them. Sample restrictions, units, and
   the precise dependent variable often appear only there.
+- **Uncertainty:** distinguish SD, SE, confidence intervals, and credible intervals.
+  Check whether a null result rules out substantively important effects rather than
+  treating a large p-value as evidence of equivalence.
 
 ## 3. Structural and decision models
 

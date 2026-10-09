@@ -85,3 +85,30 @@ Finch's text is original. The ideas below were adapted, with credit:
 
 - FutureHouse PaperQA (Apache-2.0). https://github.com/Future-House/paper-qa
 - OpenScholar (Apache-2.0). https://github.com/AkariAsai/OpenScholar
+
+## October 9, 2026 audit: additional comparisons and utilities
+
+These are design comparisons, not evidence that one skill outperforms another. The
+additions use original wording; no external implementation was copied.
+
+| Source inspected | License/status checked | Finding and decision |
+|---|---|---|
+| [paper-reading-coach](https://github.com/ITerminaTor996/paper-reading-coach-skill/blob/main/paper-reading-coach/SKILL.md) | [MIT](https://github.com/ITerminaTor996/paper-reading-coach-skill/blob/main/LICENSE) | Direct questions take priority and reading state persists across interruptions. Add these to Finch's existing modes; keep quizzes optional. |
+| [xiaofengShi/paper-reading-skill](https://github.com/xiaofengShi/paper-reading-skill/blob/main/SKILL.md) | Repository identifies an MIT license | Explaining figures and equations alongside their setup makes a reading self-contained. Add writing guidance; keep HTML rendering optional rather than importing its renderer and output contract. |
+| [sodalone/paper-reading-skill](https://github.com/sodalone/paper-reading-skill/blob/main/SKILL.md) | No root LICENSE found at inspection; no text/code reused | Its paper-type coverage and arXiv preprocessing are useful comparisons. Finch needs review-paper coverage and a small acquisition utility, but should retain local-PDF and non-arXiv support. |
+| [K-Dense critical thinking](https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/skills/scientific-critical-thinking/SKILL.md) and [literature review](https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/skills/literature-review/SKILL.md) | [MIT](https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/LICENSE.md) | Distinguish study independence, reporting completeness, and evidentiary warrant. Expand Finch's existing guides; do not import a full clinical appraisal framework. |
+
+- [PRISMA 2020](https://www.prisma-statement.org/prisma-2020): reporting guidance for
+  systematic reviews. Use its scope to distinguish review reporting from the validity
+  of a synthesis, not to assign checklist-based quality scores.
+- [Crossref's Retraction Watch documentation](https://www.crossref.org/documentation/retrieve-metadata/retraction-watch/):
+  primary documentation for update notices. Corrections and expressions of concern have
+  less complete coverage than retractions; an empty search cannot certify a clean record.
+- [Poppler pdftotext manual](https://manpages.debian.org/bookworm/poppler-utils/pdftotext.1.en.html):
+  `-layout`, UTF-8 output, and retained form-feed page separators support the original
+  extraction helper. Page anchors solve a recurring citation problem without adding a
+  Python package or online service.
+- [Docling](https://github.com/docling-project/docling) and
+  [PyMuPDF](https://github.com/pymupdf/PyMuPDF): richer optional extraction tools worth
+  considering for difficult layouts. Neither is bundled or required; prefer an existing
+  host reader and inspect consequential page regions directly.
