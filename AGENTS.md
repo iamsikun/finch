@@ -18,3 +18,25 @@ self-contained, since that folder alone gets copied into users' agents.
 - Bump `metadata.version` in SKILL.md and `version` in `.claude-plugin/plugin.json` together.
 - Validate after editing: `uv run --no-project python scripts/validate.py` and
   `uvx --from skills-ref agentskills validate skills/finch`; for manifests, `claude plugin validate .`.
+
+## Releasing
+
+Development happens on `main`. Users install from the `stable` branch, and their
+installs update automatically: `install.sh` runs a daily fast-forward, and Claude Code
+checks the plugin version. Only move `stable` deliberately:
+
+1. Run the validators above and at least one smoke reading from `evals/evals.json`.
+2. Bump the version in `skills/finch/SKILL.md` (`metadata.version`) and in
+   `.claude-plugin/plugin.json`. Use semantic versioning: a major bump means a visible
+   change to the output structure or the workflow. Claude Code only updates a plugin when
+   this version changes.
+3. Add an entry to `CHANGELOG.md`.
+4. Commit, tag, and publish:
+   ```bash
+   git tag vX.Y.Z
+   git push origin main vX.Y.Z
+   git push origin main:stable      # this is the release; it fast-forwards stable
+   ```
+
+Never force-push `stable`. Installs update with `--ff-only`, so rewriting the branch's
+history would leave them stuck on the old version.

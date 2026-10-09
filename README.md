@@ -19,24 +19,51 @@ Copilot, OpenCode, and other compatible agents.
 
 ## Install
 
-The installable skill is `skills/finch/`. Everything else in this repo is design notes and
-evaluation material.
+Install once and Finch keeps itself current. Releases come from the `stable` branch,
+so work in progress never reaches your agents.
 
-**Any agent, via the `skills` CLI** (detects installed agents):
+**Any agent (recommended):**
 
 ```bash
-npx skills add iamsikun/finch            # project scope
-npx skills add iamsikun/finch -g         # user scope (all projects)
+curl -fsSL https://raw.githubusercontent.com/iamsikun/finch/stable/install.sh | bash
 ```
 
-**Claude Code: plugin marketplace**
+This one command:
+- clones Finch to `~/.local/share/finch`;
+- links the skill into every agent it detects (`~/.claude/skills`, the shared
+  `~/.agents/skills` read by Codex, Gemini CLI and Cursor, Copilot, OpenCode);
+- schedules a daily background update (launchd on macOS, cron on Linux).
+
+Updates only ever fast-forward to new releases, are skipped quietly when offline, and
+never touch a copy you have edited. Restart your agent after installing.
 
 ```bash
-claude plugin marketplace add iamsikun/finch
+~/.local/share/finch/install.sh status      # version, links, last update
+~/.local/share/finch/install.sh update      # update now
+~/.local/share/finch/install.sh uninstall   # remove everything
+```
+
+Add `--no-auto-update` to the install command (`... | bash -s -- --no-auto-update`) to
+manage updates yourself. If you'd rather read the script before running it, clone the
+repo and run `./install.sh`.
+
+**Claude Code: plugin marketplace.** This is the alternative to the installer for
+Claude Code users; use one or the other, not both.
+
+```bash
+claude plugin marketplace add iamsikun/finch#stable
 claude plugin install finch@finch
 ```
 
-**Manual install (symlink or copy the folder):**
+Then turn on auto-update: `/plugin` → **Marketplaces** → **finch** → **Enable
+auto-update**. Third-party marketplaces have it off by default. Claude Code then picks up
+each new release on its own.
+
+**Other options:**
+- **`skills` CLI:** `npx skills add iamsikun/finch -g` installs into the agents it
+  detects. Update with the CLI's update command, which `npx skills --help` lists.
+- **Manual:** symlink `skills/finch` from a clone into your agent's skills folder, then
+  `git pull` to update.
 
 | Agent | User-level path | Project-level path |
 |---|---|---|
@@ -45,14 +72,7 @@ claude plugin install finch@finch
 | Gemini CLI | `~/.gemini/skills/finch` or `~/.agents/skills/finch` | `.gemini/skills/finch` or `.agents/skills/finch` |
 | Cursor | `~/.cursor/skills/finch` or `~/.agents/skills/finch` | `.cursor/skills/finch` or `.agents/skills/finch` |
 
-```bash
-git clone https://github.com/iamsikun/finch.git
-ln -s "$PWD/finch/skills/finch" ~/.claude/skills/finch      # Claude Code
-ln -s "$PWD/finch/skills/finch" ~/.agents/skills/finch      # Codex / Gemini / Cursor
-```
-
-Gemini CLI can also install directly with
-`gemini skills install https://github.com/iamsikun/finch --path skills/finch`.
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each release.
 
 ## Use
 
@@ -98,6 +118,8 @@ docs/design.md           objectives and the research behind each design choice
 docs/sources.md          annotated sources and attribution for adapted ideas
 evals/                   evaluation protocol, seed prompts, answer-key template
 .claude-plugin/          Claude Code plugin + marketplace manifests
+install.sh               installer with automatic updates from the stable branch
+CHANGELOG.md             release notes
 ```
 
 ## Status
