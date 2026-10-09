@@ -206,8 +206,12 @@ cmd_uninstall() {
   unschedule_updates
   unlink_skill
   if [ -d "$FINCH_HOME/.git" ]; then
-    rm -rf "$FINCH_HOME"
-    say "removed $FINCH_HOME"
+    if [ -n "$(git -C "$FINCH_HOME" status --porcelain 2>/dev/null)" ]; then
+      say "kept $FINCH_HOME because it has local edits; delete it yourself when done"
+    else
+      rm -rf "$FINCH_HOME"
+      say "removed $FINCH_HOME"
+    fi
   fi
   rm -rf "$STATE_DIR"
   say "Finch uninstalled"
