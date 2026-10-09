@@ -4,7 +4,7 @@ description: Read, explain, and situate academic papers. Use this skill whenever
 license: MIT
 metadata:
   author: Sikun Xu
-  version: "0.2.1"
+  version: "0.2.2"
 ---
 
 # Finch: reading an academic paper

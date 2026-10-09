@@ -5,6 +5,10 @@ Finch uses semantic versioning:
 - **Minor** releases add guidance or capabilities.
 - **Patch** releases make wording fixes.
 
+## 0.2.2 — 2026-10-09
+
+- Remove the image-generation prompt file from `docs/assets/`.
+
 ## 0.2.1 — 2026-10-09
 
 - Add a banner image to the README.
