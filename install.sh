@@ -3,22 +3,24 @@
 #
 #   curl -fsSL https://raw.githubusercontent.com/iamsikun/finch/stable/install.sh | bash
 #
-# Commands:
-#   install.sh [install] [--no-auto-update]   clone, link into every detected agent, schedule daily updates
-#   install.sh update                         fast-forward to the latest stable release (run by the scheduler)
-#   install.sh status                         show installed version, links, and last update
-#   install.sh uninstall                      remove links, scheduled job, and the clone
+# After installing, the same script is available as the `finch` command:
+#   finch status                              show installed version, links, and last update
+#   finch update                              fast-forward to the latest stable release (also run daily)
+#   finch uninstall                           remove links, the command, scheduled job, and the clone
+#   finch install [--no-auto-update]          (re)install: clone, link into every detected agent, schedule updates
 #
 # Environment overrides:
 #   FINCH_HOME  where the clone lives            (default: ~/.local/share/finch)
 #   FINCH_REF   branch or tag to track           (default: stable)
 #   FINCH_REPO  git URL to clone from            (default: https://github.com/iamsikun/finch.git)
+#   FINCH_BIN   directory for the finch command  (default: ~/.local/bin)
 
 set -euo pipefail
 
 FINCH_HOME="${FINCH_HOME:-$HOME/.local/share/finch}"
 FINCH_REF="${FINCH_REF:-stable}"
 FINCH_REPO="${FINCH_REPO:-https://github.com/iamsikun/finch.git}"
+FINCH_BIN="${FINCH_BIN:-$HOME/.local/bin}"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/finch"
 LOG_FILE="$STATE_DIR/update.log"
 LAUNCHD_LABEL="io.github.iamsikun.finch.update"
@@ -78,6 +80,34 @@ unlink_skill() {
       say "removed $target"
     fi
   done
+}
+
+# Expose the installed copy of this script as `finch`, so it updates along with the skill.
+link_command() {
+  local target="$FINCH_BIN/finch"
+  mkdir -p "$FINCH_BIN"
+  if [ -L "$target" ]; then
+    ln -sfn "$FINCH_HOME/install.sh" "$target"
+  elif [ -e "$target" ]; then
+    say "skipped $target (already exists and is not a symlink); use $FINCH_HOME/install.sh instead"
+    return 0
+  else
+    ln -s "$FINCH_HOME/install.sh" "$target"
+  fi
+  say "command: $target"
+  case ":$PATH:" in
+    *":$FINCH_BIN:"*) ;;
+    *) say "note: $FINCH_BIN is not on your PATH; add this to your shell profile:"
+       say "  export PATH=\"$FINCH_BIN:\$PATH\"" ;;
+  esac
+}
+
+unlink_command() {
+  local target="$FINCH_BIN/finch"
+  if [ -L "$target" ] && [ "$(readlink "$target")" = "$FINCH_HOME/install.sh" ]; then
+    rm "$target"
+    say "removed $target"
+  fi
 }
 
 schedule_updates() {
@@ -154,12 +184,13 @@ cmd_install() {
   fi
 
   link_skill
+  link_command
   if [ "$auto" -eq 1 ]; then
     schedule_updates
   else
-    say "automatic updates off; run '$FINCH_HOME/install.sh update' to update"
+    say "automatic updates off; run 'finch update' to update"
   fi
-  say "done. Restart your agent to pick up the skill."
+  say "done. Restart your agent to pick up the skill. Run 'finch status' to check it."
 }
 
 # Fast-forward only: never discards local edits, never moves to unreleased work.
@@ -199,6 +230,7 @@ cmd_status() {
   for dir in "$HOME/.claude/skills" "$HOME/.agents/skills" "$HOME/.copilot/skills" "$HOME/.config/opencode/skills"; do
     [ -L "$dir/finch" ] && say "linked:      $dir/finch"
   done
+  [ -L "$FINCH_BIN/finch" ] && say "command:     $FINCH_BIN/finch"
   if [ -f "$LAUNCHD_PLIST" ] || { command -v crontab >/dev/null && crontab -l 2>/dev/null | grep -q "$CRON_MARKER"; }; then
     say "auto-update: on (daily)"
   else
@@ -209,6 +241,7 @@ cmd_status() {
 cmd_uninstall() {
   unschedule_updates
   unlink_skill
+  unlink_command
   if [ -d "$FINCH_HOME/.git" ]; then
     if [ -n "$(git -C "$FINCH_HOME" status --porcelain 2>/dev/null)" ]; then
       say "kept $FINCH_HOME because it has local edits; delete it yourself when done"
@@ -222,14 +255,17 @@ cmd_uninstall() {
 }
 
 main() {
-  local cmd="${1:-install}"
+  # Run as `finch`, the default is status; run as install.sh or piped to bash, it installs.
+  local default=install
+  [ "$(basename "$0")" = finch ] && default=status
+  local cmd="${1:-$default}"
   case "$cmd" in
     install) shift || true; cmd_install "$@" ;;
     --no-auto-update) cmd_install "$@" ;;
     update) cmd_update ;;
     status) cmd_status ;;
     uninstall) cmd_uninstall ;;
-    -h|--help|help) sed -n '2,16p' "$0" 2>/dev/null || true ;;
+    -h|--help|help) sed -n '2,17p' "$0" 2>/dev/null || true ;;
     *) die "unknown command: $cmd (try: install, update, status, uninstall)" ;;
   esac
 }

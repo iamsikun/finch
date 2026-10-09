@@ -32,15 +32,16 @@ This one command:
 - clones Finch to `~/.local/share/finch`;
 - links the skill into every agent it detects (`~/.claude/skills`, the shared
   `~/.agents/skills` read by Codex, Gemini CLI and Cursor, Copilot, OpenCode);
-- schedules a daily background update (launchd on macOS, cron on Linux).
+- schedules a daily background update (launchd on macOS, cron on Linux);
+- adds a `finch` command (linked into `~/.local/bin`) for status, updates, and uninstalling.
 
 Updates only ever fast-forward to new releases, are skipped quietly when offline, and
 never touch a copy you have edited. Restart your agent after installing.
 
 ```bash
-~/.local/share/finch/install.sh status      # version, links, last update
-~/.local/share/finch/install.sh update      # update now
-~/.local/share/finch/install.sh uninstall   # remove everything
+finch status      # version, links, last update
+finch update      # update now
+finch uninstall   # remove everything
 ```
 
 Add `--no-auto-update` to the install command (`... | bash -s -- --no-auto-update`) to

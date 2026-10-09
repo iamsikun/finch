@@ -15,6 +15,8 @@ Finch uses semantic versioning:
 - Bundle an optional PDF extraction helper with page anchors, source hashes, and sparse
   page warnings, plus the license needed when copying only the skill folder.
 - Make the updater skip tracked and untracked local edits before fetching.
+- Add a `finch` command (linked into `~/.local/bin`): `finch status`, `finch update`,
+  `finch uninstall`.
 - Extend portable-resource validation, utility regression tests, and behavioral evals.
 
 ## 0.1.0 — 2026-10-09
