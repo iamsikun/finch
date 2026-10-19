@@ -159,7 +159,7 @@ unschedule_updates() {
     say "removed launchd job"
   fi
   if command -v crontab >/dev/null && crontab -l 2>/dev/null | grep -q "$CRON_MARKER"; then
-    crontab -l 2>/dev/null | grep -v "$CRON_MARKER" | crontab -
+    { crontab -l 2>/dev/null | grep -v "$CRON_MARKER" || true; } | crontab -
     say "removed cron job"
   fi
 }
@@ -188,6 +188,7 @@ cmd_install() {
   if [ "$auto" -eq 1 ]; then
     schedule_updates
   else
+    unschedule_updates
     say "automatic updates off; run 'finch update' to update"
   fi
   say "done. Restart your agent to pick up the skill. Run 'finch status' to check it."

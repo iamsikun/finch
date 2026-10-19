@@ -5,6 +5,13 @@ Finch uses semantic versioning:
 - **Minor** releases add guidance or capabilities.
 - **Patch** releases make wording fixes.
 
+## 0.3.0 — 2026-10-18
+
+- `install.sh install --no-auto-update` now removes an existing scheduled update job,
+  so an install pinned with `FINCH_REF` stays on that ref (#2).
+- Removing the cron job no longer aborts when it is the only crontab entry, which
+  stopped `finch uninstall` and `--no-auto-update` partway on Linux (#1).
+
 ## 0.2.2 — 2026-10-09
 
 - Remove the image-generation prompt file from `docs/assets/`.
